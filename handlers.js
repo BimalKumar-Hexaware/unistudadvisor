@@ -92,7 +92,7 @@ alexaApp.intent('PercentageIntent', function (req, res) {
     if (SubjectsIntent) {
         PercentageIntent = true;
         elaborateAstronautSkills = true;
-        res.say("Wow, A high distinction! I recommend that you pursue a Master in Astronomy and Astrophysics. BTW, do you know there are additional attributes that are mandatory to become an astronaut?").shouldEndSession(false);
+        res.say("Wow, A high distinction! I recommend that you pursue a Master in Astronomy and Astrophysics. By the way, do you know there are additional attributes that are mandatory to become an astronaut?").shouldEndSession(false);
         return res.send();
     }
     res.say(fallbackIntents[Math.floor(Math.random() * fallbackIntents.length)]).shouldEndSession(false);
@@ -102,7 +102,7 @@ alexaApp.intent('NotSureIntent', function (req, res) {
     console.log("Inside NotSureIntent");
     if (elaborateAstronautSkills) {
         askAboutSwimming = true;
-        res.say("Sure. Do you like swimming? Most part of your astronaut training is going to be under water.");
+        res.say("Sure. Do you like to swim and being underwater? Most part of your astronaut training is going to be under water.");
         return res.send();
     }
     res.say(fallbackIntents[Math.floor(Math.random() * fallbackIntents.length)]).shouldEndSession(false);
