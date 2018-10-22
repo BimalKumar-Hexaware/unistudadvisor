@@ -16,6 +16,26 @@ askABoutSpaceResearch = false;
 askForOtherCourses = false;
 askIfAnythingElse = false;
 
+alexaApp.intent("AMAZON.HelpIntent", function (request, response) {
+    console.log("Inside AMAZON.HelpIntent");
+    var helpOutput = "You can ask your questions like, What courses can you offer me?. You can also say stop or exit to quit.";
+    var reprompt = "What would you like to do?";
+    // AMAZON.HelpIntent must leave session open -> .shouldEndSession(false)
+    response.say(helpOutput).reprompt(reprompt).shouldEndSession(false);
+});
+
+alexaApp.intent("AMAZON.StopIntent", function (request, response) {
+    console.log("Inside AMAZON.StopIntent");
+    var stopOutput = "Don't You Worry. I'll be back.";
+    response.say(stopOutput);
+});
+
+alexaApp.intent("AMAZON.CancelIntent", function (request, response) {
+    console.log("Inside AMAZON.CancelIntent");
+    var cancelOutput = "No problem. Request cancelled.";
+    response.say(cancelOutput);
+});
+
 alexaApp.launch(function (req, res) {
     console.log("App launched");
     res.say("Hey there, I’m Uni, your course adviser in Monash University. You can ask your questions like, What courses can you offer me?").shouldEndSession(false);
