@@ -153,8 +153,8 @@ alexaApp.intent('LoveIntent', function (req, res) {
     res.say(fallbackIntents[Math.floor(Math.random() * fallbackIntents.length)]).shouldEndSession(false);
 });
 
-alexaApp.intent('LoveIntent', function (req, res) {
-    console.log("Inside LoveIntent");
+alexaApp.intent('CareeerOpportunityIntent', function (req, res) {
+    console.log("Inside CareeerOpportunityIntent");
     if (askForOtherCourses) {
         askIfAnythingElse = true;
         res.say("This program opens you up to positions with space and defense companies like Lockheed Martin, Northrup Gruman, Boeing, and National Space Agencies. I’ve sent you more details to your email. Is there anything else you’d like to know?").shouldEndSession(false);
