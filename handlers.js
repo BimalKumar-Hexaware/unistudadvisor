@@ -123,7 +123,7 @@ alexaApp.intent('SwimUnderwaterIntent', function (req, res) {
     console.log("Inside SwimUnderwaterIntent");
     if (askAboutSwimming) {
         askAboutSuperAdventureRides = true;
-        res.say("How about riding a roller coaster or other super adventure rides?");
+        res.say("How about riding a roller coaster or other super adventure rides?").shouldEndSession(false);
         return res.send();
     }
     res.say(fallbackIntents[Math.floor(Math.random() * fallbackIntents.length)]).shouldEndSession(false);
@@ -133,7 +133,7 @@ alexaApp.intent('HateIntent', function (req, res) {
     console.log("Inside HateIntent");
     if (askAboutSuperAdventureRides) {
         askABoutSpaceResearch = true;
-        res.say("Are you interested in observing and researching deep space?");
+        res.say("Are you interested in observing and researching deep space?").shouldEndSession(false);
         return res.send();
     }
     res.say(fallbackIntents[Math.floor(Math.random() * fallbackIntents.length)]).shouldEndSession(false);
@@ -143,7 +143,7 @@ alexaApp.intent('LoveIntent', function (req, res) {
     console.log("Inside LoveIntent");
     if (askABoutSpaceResearch) {
         askForOtherCourses = true;
-        res.say("Great! I think you may want to reconsider being an astronaut. You can still become a good scientist in space research by taking up Master in Astronomy and Astrophysics. Do you have a question?");
+        res.say("Great! I think you may want to reconsider being an astronaut. You can still become a good scientist in space research by taking up Master in Astronomy and Astrophysics. Do you have a question?").shouldEndSession(false);
         return res.send();
     }
     res.say(fallbackIntents[Math.floor(Math.random() * fallbackIntents.length)]).shouldEndSession(false);
@@ -153,7 +153,7 @@ alexaApp.intent('LoveIntent', function (req, res) {
     console.log("Inside LoveIntent");
     if (askForOtherCourses) {
         askIfAnythingElse = true;
-        res.say("This program opens you up to positions with space and defense companies like Lockheed Martin, Northrup Gruman, Boeing, and National Space Agencies. I’ve sent you more details to your email. Is there anything else you’d like to know?");
+        res.say("This program opens you up to positions with space and defense companies like Lockheed Martin, Northrup Gruman, Boeing, and National Space Agencies. I’ve sent you more details to your email. Is there anything else you’d like to know?").shouldEndSession(false);
         return res.send();
     }
     res.say(fallbackIntents[Math.floor(Math.random() * fallbackIntents.length)]).shouldEndSession(false);
@@ -176,7 +176,7 @@ alexaApp.intent('ThankIntent', function (req, res) {
     askIfAnythingElse = false;
 
     if (askIfAnythingElse) {
-        res.say("All the very best! See you soon in the classes");
+        res.say("All the very best! See you soon in the classes").shouldEndSession(false);
         return res.send();
     }
     res.say(fallbackIntents[Math.floor(Math.random() * fallbackIntents.length)]).shouldEndSession(false);
