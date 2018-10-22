@@ -109,6 +109,7 @@ alexaApp.intent('PercentageIntent', function (req, res) {
 });
 
 alexaApp.intent('NotSureIntent', function (req, res) {
+    console.log(JSON.stringify(req));
     console.log("Inside NotSureIntent");
     if (elaborateAstronautSkills) {
         askAboutSwimming = true;
