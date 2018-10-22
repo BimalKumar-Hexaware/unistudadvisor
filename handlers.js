@@ -51,11 +51,9 @@ alexaApp.intent('StartConvIntent', function (req, res) {
 alexaApp.intent('EnquireCourseIntent', function (req, res) {
     console.log("Inside EnquireCourseIntent");
     EnquireCourseIntent = true;
-    if (StartConvIntent) {
-        askforQualification = true;
-        res.say("Sure. What is your qualification?").shouldEndSession(false);
-        return res.send();
-    }
+    askforQualification = true;
+    res.say("Sure. What is your qualification?").shouldEndSession(false);
+    return res.send();
     res.say(fallbackIntents[Math.floor(Math.random() * fallbackIntents.length)]).shouldEndSession(false);
 });
 
