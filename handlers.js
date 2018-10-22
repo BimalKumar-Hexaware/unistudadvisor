@@ -64,6 +64,10 @@ alexaApp.intent('YesIntent', function (req, res) {
         res.say("Sure. What is your qualification?").shouldEndSession(false);
         return res.send();
     }
+    if (askABoutSpaceResearch) {
+        res.say("Great! I think you may want to reconsider being an astronaut. You can still become a good scientist in space research by taking up Master in Astronomy and Astrophysics. Do you have a question?").shouldEndSession(false);
+        return res.send();
+    }
     res.say(fallbackIntents[Math.floor(Math.random() * fallbackIntents.length)]).shouldEndSession(false);
 });
 
@@ -115,7 +119,7 @@ alexaApp.intent('NotSureIntent', function (req, res) {
         res.say("Sure. Do you like to swim and being underwater? Most part of your astronaut training is going to be under water.").shouldEndSession(false);
         return res.send();
     }
-    
+
     res.say(fallbackIntents[Math.floor(Math.random() * fallbackIntents.length)]).shouldEndSession(false);
 });
 
@@ -152,7 +156,6 @@ alexaApp.intent('LoveIntent', function (req, res) {
 alexaApp.intent('LoveIntent', function (req, res) {
     console.log("Inside LoveIntent");
     if (askForOtherCourses) {
-        console.log("REACHED HEREEEEEEEEEEEEEEEEEEE");
         askIfAnythingElse = true;
         res.say("This program opens you up to positions with space and defense companies like Lockheed Martin, Northrup Gruman, Boeing, and National Space Agencies. I’ve sent you more details to your email. Is there anything else you’d like to know?").shouldEndSession(false);
         return res.send();
