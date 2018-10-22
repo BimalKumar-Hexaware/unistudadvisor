@@ -109,16 +109,14 @@ alexaApp.intent('PercentageIntent', function (req, res) {
 });
 
 alexaApp.intent('NotSureIntent', function (req, res) {
-    console.log(JSON.stringify(req));
-    console.log(fallbackIntents[Math.floor(Math.random() * fallbackIntents.length)]);
     console.log("Inside NotSureIntent");
     if (elaborateAstronautSkills) {
         askAboutSwimming = true;
-        res.say("Sure. Do you like to swim and being underwater? Most part of your astronaut training is going to be under water.");
+        res.say("Sure. Do you like to swim and being underwater? Most part of your astronaut training is going to be under water.").shouldEndSession(false);
         return res.send();
     }
     
-    res.say("test this").shouldEndSession(false);
+    res.say(fallbackIntents[Math.floor(Math.random() * fallbackIntents.length)]).shouldEndSession(false);
 });
 
 alexaApp.intent('SwimUnderwaterIntent', function (req, res) {
