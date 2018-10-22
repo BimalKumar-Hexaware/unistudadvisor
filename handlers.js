@@ -67,7 +67,7 @@ alexaApp.intent('SubjectsIntent', function (req, res) {
     res.say(fallbackIntents[Math.floor(Math.random() * fallbackIntents.length)]).shouldEndSession(false);
 });
 
-alexaApp.intent('PercentageIntent', function (req, res) {.
+alexaApp.intent('PercentageIntent', function (req, res) {
     console.log("Inside PercentageIntent");
     if (SubjectsIntent) {
         PercentageIntent = true;
