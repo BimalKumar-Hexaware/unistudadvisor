@@ -15,6 +15,7 @@ askAboutSuperAdventureRides = false;
 askABoutSpaceResearch = false;
 askForOtherCourses = false;
 askIfAnythingElse = false;
+EnquireCourseIntent = false;
 
 alexaApp.intent("AMAZON.HelpIntent", function (request, response) {
     console.log("Inside AMAZON.HelpIntent");
@@ -45,6 +46,17 @@ alexaApp.intent('StartConvIntent', function (req, res) {
     console.log("Inside StartConvIntent");
     StartConvIntent = true;
     res.say("You mean, the courses available for you to join?").shouldEndSession(false);
+});
+
+alexaApp.intent('EnquireCourseIntent', function (req, res) {
+    console.log("Inside EnquireCourseIntent");
+    EnquireCourseIntent = true;
+    if (StartConvIntent) {
+        askforQualification = true;
+        res.say("Sure. What is your qualification?").shouldEndSession(false);
+        return res.send();
+    }
+    res.say(fallbackIntents[Math.floor(Math.random() * fallbackIntents.length)]).shouldEndSession(false);
 });
 
 alexaApp.intent('YesIntent', function (req, res) {
