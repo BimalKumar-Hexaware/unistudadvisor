@@ -152,6 +152,7 @@ alexaApp.intent('LoveIntent', function (req, res) {
 alexaApp.intent('LoveIntent', function (req, res) {
     console.log("Inside LoveIntent");
     if (askForOtherCourses) {
+        console.log("REACHED HEREEEEEEEEEEEEEEEEEEE");
         askIfAnythingElse = true;
         res.say("This program opens you up to positions with space and defense companies like Lockheed Martin, Northrup Gruman, Boeing, and National Space Agencies. I’ve sent you more details to your email. Is there anything else you’d like to know?").shouldEndSession(false);
         return res.send();
