@@ -19,7 +19,7 @@ EnquireCourseIntent = false;
 
 alexaApp.error = function (exception, req, res) {
     console.log("inside error handler");
-    res.say(fallbackIntents[Math.floor(Math.random() * fallbackIntents.length)]).shouldEndSession(false);
+    res.say("Sorry, something bad happened").shouldEndSession(false);
 };
 
 alexaApp.intent("AMAZON.HelpIntent", function (request, response) {
@@ -103,6 +103,7 @@ alexaApp.intent('AspirationIntent', function (req, res) {
 
 alexaApp.intent('SubjectsIntent', function (req, res) {
     console.log("Inside SubjectsIntent");
+    console.log("Slots", req.slots);
     if (AspirationIntent) {
         SubjectsIntent = true;
         res.say("That’s in line with an Astronaut. What’s your grade in bachelor of physics?").shouldEndSession(false);
@@ -113,6 +114,7 @@ alexaApp.intent('SubjectsIntent', function (req, res) {
 
 alexaApp.intent('PercentageIntent', function (req, res) {
     console.log("Inside PercentageIntent");
+    console.log("Slots", req.slots);
     if (SubjectsIntent) {
         PercentageIntent = true;
         elaborateAstronautSkills = true;
@@ -176,12 +178,15 @@ alexaApp.intent('CareeerOpportunityIntent', function (req, res) {
 alexaApp.intent('ThankIntent', function (req, res) {
     console.log("Inside ThankIntent");
 
-
     if (askIfAnythingElse) {
-        res.say("All the very best! See you soon in the classes").shouldEndSession(false);
+        res.say("All the very best! See you soon in the classes").shouldEndSession(true);
         return res.send();
     }
+    clearContext();
+    res.say("Happy to help you. Bye").shouldEndSession(true);
+});
 
+function clearContext() {
     YesIntent = false;
     StartConvIntent = false;
     askforQualification = false;
@@ -195,7 +200,6 @@ alexaApp.intent('ThankIntent', function (req, res) {
     askABoutSpaceResearch = false;
     askForOtherCourses = false;
     askIfAnythingElse = false;
-    res.say(fallbackIntents[Math.floor(Math.random() * fallbackIntents.length)]).shouldEndSession(false);
-});
+}
 
 module.exports = alexaApp;
