@@ -49,9 +49,9 @@ alexaApp.intent("AMAZON.CancelIntent", function (request, response) {
 alexaApp.launch(function (req, res) {
     console.log("App launched");
     var speech = new Speech();
-    speech.say("Hey there").pause("500ms").say('I am Uni, your course adviser in U.W.W University').pause('500ms');
+    speech.prosody({ rate: 'fast' }, "Hey there").pause("500ms").say('I am Uni, your course adviser in U.W.W University').pause('500ms');
     speech.sentence("You can ask me questions like");
-    speech.sentence('What courses can you offer me').pause('500ms').say("or");
+    speech.sentence('What courses can you offer me or');
     speech.sentence('What are the pre-requisites to enroll for a courses');
     var speechOutput = speech.ssml(true);
     res.say(speechOutput).shouldEndSession(false);
@@ -63,7 +63,6 @@ alexaApp.intent('EnquireCourseIntent', function (req, res) {
     askforQualification = true;
     res.say("Sure. What is your qualification?").shouldEndSession(false);
     return res.send();
-    res.say(fallbackIntents[Math.floor(Math.random() * fallbackIntents.length)]).shouldEndSession(false);
 });
 
 alexaApp.intent('QualificationIntent', function (req, res) {
@@ -71,7 +70,7 @@ alexaApp.intent('QualificationIntent', function (req, res) {
     if (askforQualification) {
         askForAspiration = true;
         var speech = new Speech();
-        speech.sentence('Good').sentence("Can you tell me your aspiration");
+        speech.prosody({ rate: 'fast' }, 'Good').sentence("Can you tell me your aspiration");
         speech.sentence("like what do you want to become");
         speech.sentence('For example A doctor a computer scientist');
         var speechOutput = speech.ssml(true);
@@ -98,10 +97,10 @@ alexaApp.intent('PercentageIntent', function (req, res) {
     if (askForGrade) {
         askCourseOptions = true;
         var speech = new Speech();
-        speech.prosody({ volume: 'loud' }, 'Wow').sentence("a high distinction");
+        speech.prosody({ rate: 'fast' }, 'Wow').sentence("a high distinction");
         speech.sentence("I recommend that you pursue the following courses").pause('500ms');
-        speech.sentence('moderate', 'Master in Astronomy').say("and");
-        speech.sentence('moderate', 'Astrophysics');
+        speech.sentence('Master in Astronomy').say("and");
+        speech.sentence('Astrophysics');
         speech.emphasis('moderate', "Do you like to know the prerequites or career options for this course");
         var speechOutput = speech.ssml(true);
         res.say(speechOutput).shouldEndSession(false);
