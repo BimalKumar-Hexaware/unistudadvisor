@@ -98,9 +98,7 @@ alexaApp.intent('PercentageIntent', function (req, res) {
         askCourseOptions = true;
         var speech = new Speech();
         speech.prosody({ volume: '+2db' }, 'Wow').sentence("a high distinction");
-        speech.sentence("I recommend that you pursue the following courses").pause('500ms');
-        speech.sentence('Master in Astronomy').say("and");
-        speech.sentence('Astrophysics');
+        speech.sentence("I recommend that you pursue").sentence('Master in Astronomy and Astrophysics');
         speech.sentence("Do you like to know the pre-requisites or career options for this course");
         var speechOutput = speech.ssml(true);
         res.say(speechOutput).shouldEndSession(false);
