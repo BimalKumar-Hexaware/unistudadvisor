@@ -170,6 +170,13 @@ alexaApp.intent('CareeerOpportunityIntent', function (req, res) {
 
 alexaApp.intent('ThankIntent', function (req, res) {
     console.log("Inside ThankIntent");
+
+
+    if (askIfAnythingElse) {
+        res.say("All the very best! See you soon in the classes").shouldEndSession(false);
+        return res.send();
+    }
+
     YesIntent = false;
     StartConvIntent = false;
     askforQualification = false;
@@ -183,11 +190,6 @@ alexaApp.intent('ThankIntent', function (req, res) {
     askABoutSpaceResearch = false;
     askForOtherCourses = false;
     askIfAnythingElse = false;
-
-    if (askIfAnythingElse) {
-        res.say("All the very best! See you soon in the classes").shouldEndSession(false);
-        return res.send();
-    }
     res.say(fallbackIntents[Math.floor(Math.random() * fallbackIntents.length)]).shouldEndSession(false);
 });
 
