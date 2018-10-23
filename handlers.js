@@ -29,7 +29,7 @@ alexaApp.intent("AMAZON.HelpIntent", function (request, response) {
     response.say(helpOutput).reprompt(reprompt).shouldEndSession(false);
 });
 
-alexaApp.intent("AMAZON.FallbackIntent", function (request, response) {
+alexaApp.intent("AMAZON.FallbackIntent", function (req, res) {
     console.log("AMAZON.FallbackIntent");
     res.say(fallbackIntents[Math.floor(Math.random() * fallbackIntents.length)]).shouldEndSession(false);
 });
