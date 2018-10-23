@@ -25,6 +25,11 @@ alexaApp.intent("AMAZON.HelpIntent", function (request, response) {
     response.say(helpOutput).reprompt(reprompt).shouldEndSession(false);
 });
 
+alexaApp.intent("AMAZON.FallbackIntent", function (request, response) {
+    console.log("AMAZON.FallbackIntent");
+    res.say(fallbackIntents[Math.floor(Math.random() * fallbackIntents.length)]).shouldEndSession(false);
+});
+
 alexaApp.intent("AMAZON.StopIntent", function (request, response) {
     console.log("Inside AMAZON.StopIntent");
     var stopOutput = "Don't You Worry. I'll be back.";
