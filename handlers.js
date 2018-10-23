@@ -52,7 +52,7 @@ alexaApp.launch(function (req, res) {
     speech.emphasis("moderate", "Hey there").pause("200ms").say('I am Uni, your course adviser in U.W.W University').pause('500ms');
     speech.sentence("You can ask me questions like");
     speech.sentence('What courses can you offer me').say("or");
-    speech.sentence('What are the pre-requisites to enroll for a courses');
+    speech.sentence('What are the pre-requisites to enroll in a course');
     var speechOutput = speech.ssml(true);
     res.say(speechOutput).shouldEndSession(false);
 });
@@ -72,7 +72,7 @@ alexaApp.intent('QualificationIntent', function (req, res) {
         var speech = new Speech();
         speech.prosody({ volume: '+2db' }, 'Good').sentence("Can you tell me your aspiration");
         speech.sentence("like what do you want to become");
-        speech.sentence('For example A doctor a computer scientist');
+        speech.sentence('For example A doctor').say("a").sentence('computer scientist');
         var speechOutput = speech.ssml(true);
         res.say(speechOutput).shouldEndSession(false);
         return res.send();
