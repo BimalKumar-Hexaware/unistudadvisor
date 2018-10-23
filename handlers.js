@@ -1,6 +1,6 @@
 var alexa = require("alexa-app");
 var alexaApp = new alexa.app("test");
-var Speech = require('ssml-builder');
+var Speech = require('ssml-builder/amazon_speech');
 
 var fallbackIntents = ['What was that?', 'Hmm. I am not sure about that.', 'Sorry. I am not sure about that.', 'I dont know that'];
 askforQualification = false;
