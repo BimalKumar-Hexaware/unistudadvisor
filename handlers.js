@@ -44,7 +44,7 @@ alexaApp.intent("AMAZON.CancelIntent", function (request, response) {
 
 alexaApp.launch(function (req, res) {
     console.log("App launched");
-    res.say("Hey there, I’m Uni, your course adviser in Monash University. You can ask your questions like, What courses can you offer me?").shouldEndSession(false);
+    res.say("Hey there, I’m Uni, your course adviser in U.W.W University. You can ask your questions like, What courses can you offer me?").shouldEndSession(false);
 });
 
 alexaApp.intent('StartConvIntent', function (req, res) {
