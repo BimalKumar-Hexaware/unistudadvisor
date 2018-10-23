@@ -98,11 +98,11 @@ alexaApp.intent('PercentageIntent', function (req, res) {
     if (askForGrade) {
         askCourseOptions = true;
         var speech = new Speech();
-        speech.sentence('Wow').sentence("a high distinction");
+        speech.prosody({ volume: 'loud' }, 'Wow').sentence("a high distinction");
         speech.sentence("I recommend that you pursue the following courses").pause('500ms');
-        speech.emphasis('moderate', 'Master in Astronomy').say("and");
-        speech.emphasis('moderate', 'Astrophysics');
-        speech.prosody({ rate: 'fast' }, "Do you like to know the prerequites or career options for this course");
+        speech.sentence('moderate', 'Master in Astronomy').say("and");
+        speech.sentence('moderate', 'Astrophysics');
+        speech.emphasis('moderate', "Do you like to know the prerequites or career options for this course");
         var speechOutput = speech.ssml(true);
         res.say(speechOutput).shouldEndSession(false);
         return res.send();
