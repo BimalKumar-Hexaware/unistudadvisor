@@ -72,7 +72,7 @@ alexaApp.intent('QualificationIntent', function (req, res) {
         var speech = new Speech();
         speech.prosody({ volume: '+2db' }, 'Good').sentence("Can you tell me your aspiration");
         speech.sentence("like what do you want to become");
-        speech.sentence('For example A doctor').say("a").sentence('computer scientist');
+        speech.sentence('For example A doctor').sentence('a computer scientist');
         var speechOutput = speech.ssml(true);
         res.say(speechOutput).shouldEndSession(false);
         return res.send();
