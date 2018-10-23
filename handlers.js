@@ -31,11 +31,10 @@ alexaApp.intent("AMAZON.HelpIntent", function (request, response) {
     response.say(helpOutput).reprompt(reprompt).shouldEndSession(false);
 });
 
-/*alexaApp.intent("AMAZON.FallbackIntent", function (req, res) {
-    console.log(req.);
+alexaApp.intent("AMAZON.FallbackIntent", function (req, res) {
     console.log("AMAZON.FallbackIntent");
     res.say(fallbackIntents[Math.floor(Math.random() * fallbackIntents.length)]).shouldEndSession(false);
-});*/
+});
 
 alexaApp.intent("AMAZON.StopIntent", function (request, response) {
     console.log("Inside AMAZON.StopIntent");
