@@ -17,6 +17,10 @@ askForOtherCourses = false;
 askIfAnythingElse = false;
 EnquireCourseIntent = false;
 
+alexaApp.error = function (exception, request, response) {
+    res.say(fallbackIntents[Math.floor(Math.random() * fallbackIntents.length)]).shouldEndSession(false);
+};
+
 alexaApp.intent("AMAZON.HelpIntent", function (request, response) {
     console.log("Inside AMAZON.HelpIntent");
     var helpOutput = "You can ask your questions like, What courses can you offer me?. You can also say stop or exit to quit.";
