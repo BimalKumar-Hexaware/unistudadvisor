@@ -18,6 +18,7 @@ askIfAnythingElse = false;
 EnquireCourseIntent = false;
 
 alexaApp.error = function (exception, request, response) {
+    console.log("inside error handler");
     res.say(fallbackIntents[Math.floor(Math.random() * fallbackIntents.length)]).shouldEndSession(false);
 };
 
