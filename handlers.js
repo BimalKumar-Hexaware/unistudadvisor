@@ -52,7 +52,7 @@ alexaApp.launch(function (req, res) {
     console.log("App launched");
     var speech = new Speech();
     speech.say("Hey there").pause("500ms").say('I am Uni, your course adviser in U.W.W University.You can ask me questions like').pause('500ms');
-    speechspeech.prosody({ pitch: 'medium' }, 'What courses can you offer me');
+    speech.prosody({ pitch: 'medium' }, 'What courses can you offer me');
     var speechOutput = speech.ssml(true);
     res.say(speechOutput).shouldEndSession(false);
 });
