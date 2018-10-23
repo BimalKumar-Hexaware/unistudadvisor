@@ -21,8 +21,8 @@ alexaApp.intent("AMAZON.HelpIntent", function (request, response) {
     console.log("Inside AMAZON.HelpIntent");
     var speech = new Speech();
     speech.sentence("You can ask me questions like");
-    speech.prosody({ pitch: 'medium' }, 'What courses can you offer me').say("or");
-    speech.prosody({ pitch: 'medium' }, 'What are the pre-requisites to enroll for a courses');
+    speech.sentence('What courses can you offer me').pause('500ms').say("or");
+    speech.sentence('What are the pre-requisites to enroll for a courses');
     speech.sentence("You can also say stop or exit to quit");
     var speechOutput = speech.ssml(true);
     var reprompt = "What would you like to do?";
@@ -51,8 +51,8 @@ alexaApp.launch(function (req, res) {
     var speech = new Speech();
     speech.say("Hey there").pause("500ms").say('I am Uni, your course adviser in U.W.W University').pause('500ms');
     speech.sentence("You can ask me questions like");
-    speech.prosody({ pitch: 'medium' }, 'What courses can you offer me').say("or");
-    speech.prosody({ pitch: 'medium' }, 'What are the pre-requisites to enroll for a courses')
+    speech.sentence('What courses can you offer me').pause('500ms').say("or");
+    speech.sentence('What are the pre-requisites to enroll for a courses');
     var speechOutput = speech.ssml(true);
     res.say(speechOutput).shouldEndSession(false);
 });
@@ -71,9 +71,9 @@ alexaApp.intent('QualificationIntent', function (req, res) {
     if (askforQualification) {
         askForAspiration = true;
         var speech = new Speech();
-        speech.prosody({ pitch: 'loud' }, 'Good').sentence("Can you tell me your aspiration");
+        speech.sentence('Good').sentence("Can you tell me your aspiration");
         speech.sentence("like what do you want to become");
-        speech.prosody({ rate: 'fast' }, 'For example A doctor a computer scientist');
+        speech.sentence('For example A doctor a computer scientist');
         var speechOutput = speech.ssml(true);
         res.say(speechOutput).shouldEndSession(false);
         return res.send();
@@ -98,7 +98,7 @@ alexaApp.intent('PercentageIntent', function (req, res) {
     if (askForGrade) {
         askCourseOptions = true;
         var speech = new Speech();
-        speech.prosody({ pitch: 'loud' }, 'Wow').prosody({ pitch: 'loud' }, "a high distinction");
+        speech.sentence('Wow').sentence("a high distinction");
         speech.sentence("I recommend that you pursue the following courses").pause('500ms');
         speech.emphasis('moderate', 'Master in Astronomy').say("and");
         speech.emphasis('moderate', 'Astrophysics');
@@ -114,9 +114,9 @@ alexaApp.intent("CareerOptionIntent", function (req, res) {
     console.log("Inside CareerOptionIntent");
     if (askForGrade) {
         var speech = new Speech();
-        speech.prosody({ rate: 'fast' }, "This program opens you up to positions with space and defense companies like Lockheed Martin, Northrup Gruman, Boeing, and National Space Agencies");
+        speech.sentence("This program opens you up to positions with space and defense companies like Lockheed Martin, Northrup Gruman, Boeing, and National Space Agencies");
         speech.sentence("I have sent you more details to your emai");
-        speech.prosody({ rate: 'fast' }, " Do you want to know about the pre-requisites of the course");
+        speech.sentence("Do you want to know about the pre-requisites of the course");
         var speechOutput = speech.ssml(true);
         res.say(speechOutput).shouldEndSession(false);
         return res.send();
