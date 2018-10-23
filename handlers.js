@@ -3,20 +3,13 @@ var alexaApp = new alexa.app("test");
 var Speech = require('ssml-builder');
 
 var fallbackIntents = ['What was that?', 'Hmm. I am not sure about that.', 'Sorry. I am not sure about that.', 'I dont know that'];
-YesIntent = false;
-StartConvIntent = false;
 askforQualification = false;
 askForAspiration = false;
 AspirationIntent = false;
-SubjectsIntent = false;
 PercentageIntent = false;
-elaborateAstronautSkills = false;
-askAboutSwimming = false;
-askAboutSuperAdventureRides = false;
-askABoutSpaceResearch = false;
-askForOtherCourses = false;
-askIfAnythingElse = false;
 EnquireCourseIntent = false;
+askForGrade = false;
+askCourseOptions = false;
 
 alexaApp.error = function (exception, req, res) {
     console.log("inside error handler");
@@ -25,10 +18,14 @@ alexaApp.error = function (exception, req, res) {
 
 alexaApp.intent("AMAZON.HelpIntent", function (request, response) {
     console.log("Inside AMAZON.HelpIntent");
-    var helpOutput = "You can ask your questions like, What courses can you offer me?. You can also say stop or exit to quit.";
+    var speech = new Speech();
+    speech.sentence("You can ask me questions like");
+    speech.prosody({ pitch: 'medium' }, 'What courses can you offer me').say("or");
+    speech.prosody({ pitch: 'medium' }, 'What are the pre-requisites to enroll for a courses');
+    speech.sentence("You can also say stop or exit to quit");
+    var speechOutput = speech.ssml(true);
     var reprompt = "What would you like to do?";
-    // AMAZON.HelpIntent must leave session open -> .shouldEndSession(false)
-    response.say(helpOutput).reprompt(reprompt).shouldEndSession(false);
+    response.say(speechOutput).reprompt(reprompt).shouldEndSession(false);
 });
 
 alexaApp.intent("AMAZON.FallbackIntent", function (req, res) {
@@ -53,15 +50,10 @@ alexaApp.launch(function (req, res) {
     var speech = new Speech();
     speech.say("Hey there").pause("500ms").say('I am Uni, your course adviser in U.W.W University').pause('500ms');
     speech.sentence("You can ask me questions like");
-    speech.prosody({ pitch: 'medium' }, 'What courses can you offer me');
+    speech.prosody({ pitch: 'medium' }, 'What courses can you offer me').say("or");
+    speech.prosody({ pitch: 'medium' }, 'What are the pre-requisites to enroll for a courses')
     var speechOutput = speech.ssml(true);
     res.say(speechOutput).shouldEndSession(false);
-});
-
-alexaApp.intent('StartConvIntent', function (req, res) {
-    console.log("Inside StartConvIntent");
-    StartConvIntent = true;
-    res.say("You mean, the courses available for you to join?").shouldEndSession(false);
 });
 
 alexaApp.intent('EnquireCourseIntent', function (req, res) {
@@ -73,25 +65,16 @@ alexaApp.intent('EnquireCourseIntent', function (req, res) {
     res.say(fallbackIntents[Math.floor(Math.random() * fallbackIntents.length)]).shouldEndSession(false);
 });
 
-alexaApp.intent('YesIntent', function (req, res) {
-    console.log("Inside YesIntent");
-    if (StartConvIntent) {
-        askforQualification = true;
-        res.say("Sure. What is your qualification?").shouldEndSession(false);
-        return res.send();
-    }
-    if (askABoutSpaceResearch) {
-        res.say("Great! I think you may want to reconsider being an astronaut. You can still become a good scientist in space research by taking up Master in Astronomy and Astrophysics. Do you have a question?").shouldEndSession(false);
-        return res.send();
-    }
-    res.say(fallbackIntents[Math.floor(Math.random() * fallbackIntents.length)]).shouldEndSession(false);
-});
-
 alexaApp.intent('QualificationIntent', function (req, res) {
     console.log("Inside QualificationIntent");
     if (askforQualification) {
         askForAspiration = true;
-        res.say("Good! Can you tell me your aspiration, like what do you want to become?").shouldEndSession(false);
+        var speech = new Speech();
+        speech.prosody({ pitch: 'loud' }, 'Good').sentence("Can you tell me your aspiration");
+        speech.sentence("like what do you want to become");
+        speech.prosody({ rate: 'fast' }, 'For example A doctor a computer scientist');
+        var speechOutput = speech.ssml(true);
+        res.say(speechOutput).shouldEndSession(false);
         return res.send();
     }
     res.say(fallbackIntents[Math.floor(Math.random() * fallbackIntents.length)]).shouldEndSession(false);
@@ -100,19 +83,8 @@ alexaApp.intent('QualificationIntent', function (req, res) {
 alexaApp.intent('AspirationIntent', function (req, res) {
     console.log("Inside AspirationIntent");
     if (askForAspiration) {
-        AspirationIntent = true;
-        res.say("Great! What subjects did you like the most as a kid?").shouldEndSession(false);
-        return res.send();
-    }
-    res.say(fallbackIntents[Math.floor(Math.random() * fallbackIntents.length)]).shouldEndSession(false);
-});
-
-alexaApp.intent('SubjectsIntent', function (req, res) {
-    console.log("Inside SubjectsIntent");
-    console.log("Slots", req.slots);
-    if (AspirationIntent) {
-        SubjectsIntent = true;
-        res.say("That’s in line with an Astronaut. What’s your grade in bachelor of physics?").shouldEndSession(false);
+        askForGrade = true;
+        res.say("What is your grade in bachelor of physics").shouldEndSession(false);
         return res.send();
     }
     res.say(fallbackIntents[Math.floor(Math.random() * fallbackIntents.length)]).shouldEndSession(false);
@@ -121,91 +93,51 @@ alexaApp.intent('SubjectsIntent', function (req, res) {
 alexaApp.intent('PercentageIntent', function (req, res) {
     console.log("Inside PercentageIntent");
     console.log("Slots", req.slots);
-    if (SubjectsIntent) {
-        PercentageIntent = true;
-        elaborateAstronautSkills = true;
-        res.say("Wow, A high distinction! I recommend that you pursue a Master in Astronomy and Astrophysics. By the way, do you know there are additional attributes that are mandatory to become an astronaut?").shouldEndSession(false);
+    PercentageIntent = true;
+    if (askForGrade) {
+        askCourseOptions = true;
+        var speech = new Speech();
+        speech.prosody({ pitch: 'loud' }, 'Wow').prosody({ pitch: 'loud' }, "a high distinction");
+        speech.sentence("I recommend that you pursue the following courses").pause('500ms');
+        speech.emphasis('moderate', 'Master in Astronomy').say("and");
+        speech.emphasis('moderate', 'Astrophysics');
+        speech.prosody({ rate: 'fast' }, "Do you like to know the prerequites or career options for this course");
+        var speechOutput = speech.ssml(true);
+        res.say(speechOutput).shouldEndSession(false);
         return res.send();
     }
     res.say(fallbackIntents[Math.floor(Math.random() * fallbackIntents.length)]).shouldEndSession(false);
 });
 
-alexaApp.intent('NotSureIntent', function (req, res) {
-    console.log("Inside NotSureIntent");
-    if (elaborateAstronautSkills) {
-        askAboutSwimming = true;
-        res.say("Sure. Do you like to swim and being underwater? Most part of your astronaut training is going to be under water.").shouldEndSession(false);
-        return res.send();
-    }
-
-    res.say(fallbackIntents[Math.floor(Math.random() * fallbackIntents.length)]).shouldEndSession(false);
-});
-
-alexaApp.intent('SwimUnderwaterIntent', function (req, res) {
-    console.log("Inside SwimUnderwaterIntent");
-    if (askAboutSwimming) {
-        askAboutSuperAdventureRides = true;
-        res.say("How about riding a roller coaster or other super adventure rides?").shouldEndSession(false);
-        return res.send();
-    }
-    res.say(fallbackIntents[Math.floor(Math.random() * fallbackIntents.length)]).shouldEndSession(false);
-});
-
-alexaApp.intent('HateIntent', function (req, res) {
-    console.log("Inside HateIntent");
-    if (askAboutSuperAdventureRides) {
-        askABoutSpaceResearch = true;
-        res.say("Are you interested in observing and researching deep space?").shouldEndSession(false);
-        return res.send();
-    }
-    res.say(fallbackIntents[Math.floor(Math.random() * fallbackIntents.length)]).shouldEndSession(false);
-});
-
-alexaApp.intent('LoveIntent', function (req, res) {
-    console.log("Inside LoveIntent");
-    if (askABoutSpaceResearch) {
-        askForOtherCourses = true;
-        res.say("Great! I think you may want to reconsider being an astronaut. You can still become a good scientist in space research by taking up Master in Astronomy and Astrophysics. Do you have a question?").shouldEndSession(false);
-        return res.send();
-    }
-    res.say(fallbackIntents[Math.floor(Math.random() * fallbackIntents.length)]).shouldEndSession(false);
-});
-
-alexaApp.intent('CareeerOpportunityIntent', function (req, res) {
-    console.log("Inside CareeerOpportunityIntent");
-    if (askForOtherCourses) {
-        askIfAnythingElse = true;
-        res.say("This program opens you up to positions with space and defense companies like Lockheed Martin, Northrup Gruman, Boeing, and National Space Agencies. I’ve sent you more details to your email. Is there anything else you’d like to know?").shouldEndSession(false);
+alexaApp.intent("CareerOptionIntent", function (req, res) {
+    console.log("Inside CareerOptionIntent");
+    if (askForGrade) {
+        var speech = new Speech();
+        speech.prosody({ rate: 'fast' }, "This program opens you up to positions with space and defense companies like Lockheed Martin, Northrup Gruman, Boeing, and National Space Agencies");
+        speech.sentence("I have sent you more details to your emai");
+        speech.prosody({ rate: 'fast' }, " Do you want to know about the pre-requisites of the course");
+        var speechOutput = speech.ssml(true);
+        res.say(speechOutput).shouldEndSession(false);
         return res.send();
     }
     res.say(fallbackIntents[Math.floor(Math.random() * fallbackIntents.length)]).shouldEndSession(false);
 });
 
 alexaApp.intent('ThankIntent', function (req, res) {
-    console.log("Inside ThankIntent");
-
-    if (askIfAnythingElse) {
-        res.say("All the very best! See you soon in the classes").shouldEndSession(true);
-        return res.send();
-    }
     clearContext();
-    res.say("Happy to help you. Bye").shouldEndSession(true);
+    console.log("Inside ThankIntent");
+    res.say("All the very best! See you soon in the classes").shouldEndSession(true);
+    return res.send();
 });
 
 function clearContext() {
-    YesIntent = false;
-    StartConvIntent = false;
     askforQualification = false;
     askForAspiration = false;
     AspirationIntent = false;
-    SubjectsIntent = false;
     PercentageIntent = false;
-    elaborateAstronautSkills = false;
-    askAboutSwimming = false;
-    askAboutSuperAdventureRides = false;
-    askABoutSpaceResearch = false;
-    askForOtherCourses = false;
-    askIfAnythingElse = false;
+    EnquireCourseIntent = false;
+    askForGrade = false;
+    askCourseOptions = false;
 }
 
 module.exports = alexaApp;
