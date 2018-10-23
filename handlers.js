@@ -49,7 +49,7 @@ alexaApp.intent("AMAZON.CancelIntent", function (request, response) {
 alexaApp.launch(function (req, res) {
     console.log("App launched");
     var speech = new Speech();
-    speech.prosody({ rate: 'fast' }, "Hey there").pause("500ms").say('I am Uni, your course adviser in U.W.W University').pause('500ms');
+    speech.emphasis("moderate", "Hey there").pause("500ms").say('I am Uni, your course adviser in U.W.W University').pause('500ms');
     speech.sentence("You can ask me questions like");
     speech.sentence('What courses can you offer me or');
     speech.sentence('What are the pre-requisites to enroll for a courses');
