@@ -1,5 +1,6 @@
 var alexa = require("alexa-app");
 var alexaApp = new alexa.app("test");
+var Speech = require('ssml-builder');
 
 var fallbackIntents = ['What was that?', 'Hmm. I am not sure about that.', 'Sorry. I am not sure about that.', 'I dont know that'];
 YesIntent = false;
@@ -49,7 +50,11 @@ alexaApp.intent("AMAZON.CancelIntent", function (request, response) {
 
 alexaApp.launch(function (req, res) {
     console.log("App launched");
-    res.say("Hey there, I’m Uni, your course adviser in U.W.W University. You can ask your questions like, What courses can you offer me?").shouldEndSession(false);
+    var speech = new Speech();
+    speech.say("Hey there").pause("200ms").say('I am Uni, your course adviser in U.W.W University.You can ask me questions like').pause('200ms');
+    speech.emphasis('strong', 'What courses can you offer me');
+    var speechOutput = speech.ssml(true);
+    res.say(speechOutput).shouldEndSession(false);
 });
 
 alexaApp.intent('StartConvIntent', function (req, res) {
