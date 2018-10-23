@@ -12,6 +12,7 @@ askForGrade = false;
 askCourseOptions = false;
 
 alexaApp.error = function (exception, req, res) {
+    console.log(exception);
     console.log("inside error handler");
     res.say("Sorry, something bad happened").shouldEndSession(false);
 };
