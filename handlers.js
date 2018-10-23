@@ -101,7 +101,7 @@ alexaApp.intent('PercentageIntent', function (req, res) {
         speech.sentence("I recommend that you pursue the following courses").pause('500ms');
         speech.sentence('Master in Astronomy').say("and");
         speech.sentence('Astrophysics');
-        speech.sentence("Do you like to know the prerequites or career options for this course");
+        speech.sentence("Do you like to know the pre-requisites or career options for this course");
         var speechOutput = speech.ssml(true);
         res.say(speechOutput).shouldEndSession(false);
         return res.send();
