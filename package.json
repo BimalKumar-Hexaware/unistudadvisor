@@ -4,7 +4,7 @@
   "description": "Alexa voicebot developed for POC - Student advisor",
   "main": "index.js",
   "scripts": {
-    "start": "forever index.js",
+    "start": "forever start index.js",
     "stop": "forever stop index.js",
     "devstart": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
