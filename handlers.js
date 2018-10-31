@@ -111,7 +111,7 @@ alexaApp.intent("CareerOptionIntent", function (req, res) {
     if (askForGrade) {
         var speech = new Speech();
         speech.sentence("This program opens you up to positions with space and defense companies like Lockheed Martin, Northrup Gruman, Boeing, and National Space Agencies");
-        speech.sentence("I have sent you more details to your emai");
+        speech.sentence("I have sent you more details to your email");
         speech.sentence("Do you want to know about the pre-requisites of the course");
         var speechOutput = speech.ssml(true);
         res.say(speechOutput).shouldEndSession(false);
