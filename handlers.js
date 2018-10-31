@@ -37,13 +37,12 @@ alexaApp.intent("AMAZON.FallbackIntent", function (req, res) {
 alexaApp.intent("AMAZON.StopIntent", function (request, response) {
     console.log("Inside AMAZON.StopIntent");
     var stopOutput = "Don't You Worry. I'll be back.";
-    response.say(stopOutput);
+    response.say(stopOutput).shouldEndSession(true);
 });
 
 alexaApp.intent("AMAZON.CancelIntent", function (request, response) {
     console.log("Inside AMAZON.CancelIntent");
-    var cancelOutput = "No problem. Request cancelled.";
-    response.say(cancelOutput);
+    response.say("No problem. Request cancelled.").shouldEndSession(false);
 });
 
 alexaApp.launch(function (req, res) {
