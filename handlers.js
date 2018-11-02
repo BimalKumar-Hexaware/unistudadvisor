@@ -52,6 +52,7 @@ alexaApp.launch(function (req, res) {
     speech.sentence("You can ask me questions like");
     speech.sentence('What courses can you offer me').say("or");
     speech.sentence('What are the pre-requisites to enroll in a course');
+    speech.sentence('Give me information for international students');
     var speechOutput = speech.ssml(true);
     res.say(speechOutput).shouldEndSession(false);
 });
