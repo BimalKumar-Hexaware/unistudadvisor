@@ -51,7 +51,7 @@ alexaApp.launch(function (req, res) {
     speech.emphasis("moderate", "Hey there").pause("200ms").say('I am Uni, your course adviser in U.W.W University').pause('500ms');
     speech.sentence("You can ask me questions like");
     speech.sentence('What courses can you offer me').say("or");
-    speech.sentence('What are the pre-requisites to enroll in a course');
+    speech.sentence('What are the pre-requisites to enroll in a course or');
     speech.sentence('Give me information for international students');
     var speechOutput = speech.ssml(true);
     res.say(speechOutput).shouldEndSession(false);
